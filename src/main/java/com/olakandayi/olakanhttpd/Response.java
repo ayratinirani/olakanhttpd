@@ -1,23 +1,34 @@
 package com.olakandayi.olakanhttpd;
+import java.io.File;
 import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.HashMap;
 import java.io.PrintWriter;
 import java.io.IOException;
 import java.util.Date;
 import java.text.SimpleDateFormat;
-import java.util.TimeZone;public class Response      
+import java.util.TimeZone;
+public class Response
 {
+	ResponseBody responseBody;
 	OutputStream os;
-	PrintWriter printwriter;
 	HashMap<String,String> Headers=new HashMap();
-	byte[]body;
-	boolean bodyFileText=true;
+
+
+
+	private File bodyFileBinary;
+	public boolean bodyFileText=false;
 	int status;
 	String statustext;
+
+	public String textBody="";
+	private String contentType;
+	public ResponseBody body;
+
 	public Response(OutputStream oos){
 		this.os=oos;
-		//this.printwriter=new PrintWriter(os);
+		
 	}
 	public void send(){
 		try{
@@ -49,14 +60,14 @@ import java.util.TimeZone;public class Response
 		Headers.put("Set-Cookie",a);
 	}
 	
-	private void printBody(){
-		try {
-			if(bodyFileText){
+	private void printBody() throws IOException {
 
-			}
-			os.write(body);
-		} catch (IOException e) {
-
+		os.write("\r\n".getBytes(StandardCharsets.US_ASCII));
+		body = new ResponseBody();
+		if(bodyFileText){
+			os.write(textBody.getBytes(StandardCharsets.UTF_8));
+		}else{
+			body.fileToResponse(bodyFileBinary,os);
 		}
 	}
 	
@@ -78,20 +89,15 @@ import java.util.TimeZone;public class Response
             String key = mapElement.getKey();
 
 
-            // Adding some bonus marks to all the students
-
             String value = (mapElement.getValue());
 
 
-            // Printing above marks corresponding to
-
-            // students names
-
-            a+=key + " : " + value+"\r\n";
+            a+=key + ": " + value+"\r\n";
 
         }
 	
 		try {
+			//System.out.println("headers: "+a);
 			os.write(a.getBytes("US-ASCII"));
 		} catch (IOException e) {
 			printResponseLine(500,"INTERNAL ERROR");
@@ -105,5 +111,27 @@ import java.util.TimeZone;public class Response
 	
 	public void addHeader(String key, String value){
 		Headers.put(key,value);
+	}
+	
+	public void setTextBody() throws IOException {
+		bodyFileText=true;
+
+		if(textBody.startsWith("<!DOCTYPE html>")){
+			this.contentType="text/html";
+		} else if (textBody.startsWith("{")||textBody.startsWith("{")) {
+			this.contentType="application/json";
+		}else {
+			this.contentType="application/json";
+		}
+		addHeader("Content-Type",contentType);
+
+	}
+
+	public void setBodyFileBinary(File bodyFileBinary) {
+		this.bodyFileBinary = bodyFileBinary;
+		responseBody=new ResponseBody();
+
+		this.contentType=responseBody.getMimeType(bodyFileBinary);
+		addHeader("Content-Type",contentType);
 	}
 }
