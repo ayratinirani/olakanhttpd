@@ -4,20 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b88519fb-346e-4c72-8f1c-a0a4a9b0927c" name="Changes" comment="first commit server responses simple get">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/olakandayi/olakanhttpd/sample/ApiServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/packagename" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/route.txt" afterDir="false" />
+    <list default="true" id="b88519fb-346e-4c72-8f1c-a0a4a9b0927c" name="Changes" comment="tested routing works">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/olakandayi/olakanhttpd/OlkMiddleWare.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/olakandayi/olakanhttpd/sample/AuthenticateMiddleWare.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/olakandayi/olakanhttpd/sample/HtmlDoc.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/olakandayi/olakanhttpd/sample/HtmlElement.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MyMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/MyMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/MyMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/olakandayi/olakanhttpd/HReqest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/olakandayi/olakanhttpd/OlkReqest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/olakandayi/olakanhttpd/HttpServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/olakandayi/olakanhttpd/HttpServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/olakandayi/olakanhttpd/Response.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/olakandayi/olakanhttpd/Response.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/olakandayi/olakanhttpd/ResponseBody.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/olakandayi/olakanhttpd/ResponseBody.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/olakandayi/olakanhttpd/Response.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/olakandayi/olakanhttpd/OlkResponse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/olakandayi/olakanhttpd/Router.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/olakandayi/olakanhttpd/Router.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/olakandayi/olakanhttpd/Serverd.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/olakandayi/olakanhttpd/ServerD.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/olakandayi/olakanhttpd/ServerD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/olakandayi/olakanhttpd/OlkServerD.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/olakandayi/olakanhttpd/sample/ApiServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/olakandayi/olakanhttpd/sample/ApiServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/olakandayi/olakanhttpd/sample/UserServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/olakandayi/olakanhttpd/sample/UserServlet.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -41,7 +41,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/src/main/java/com/olakandayi/olakanhttpd/HReqest.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/com/olakandayi/olakanhttpd/OlkReqest.java" root0="SKIP_INSPECTION" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -107,7 +107,13 @@
       <option name="presentableId" value="LOCAL‎−۰۰۰۰۲" />
       <updated>1663926815030</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL‎−۰۰۰۰۳" summary="tested routing works">
+      <created>1663962013445</created>
+      <option name="number" value="LOCAL‎−۰۰۰۰۳" />
+      <option name="presentableId" value="LOCAL‎−۰۰۰۰۳" />
+      <updated>1663962013445</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -123,10 +129,14 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="first commit server responses simple get" />
-    <option name="LAST_COMMIT_MESSAGE" value="first commit server responses simple get" />
+    <MESSAGE value="tested routing works" />
+    <option name="LAST_COMMIT_MESSAGE" value="tested routing works" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
     <select />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/olakanhttpd$MyMain.ic" NAME="MyMain Coverage Results" MODIFIED="1664030283885" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

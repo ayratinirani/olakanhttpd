@@ -1,11 +1,11 @@
-import com.olakandayi.olakanhttpd.ServerD;
+import com.olakandayi.olakanhttpd.OlkServerD;
 
 
 public class MyMain {
 
 	public static void main(String[] args) {
 
-		ServerD serverd=new ServerD(7600);
+		OlkServerD serverd=new OlkServerD(7600);
 
 	}
 }

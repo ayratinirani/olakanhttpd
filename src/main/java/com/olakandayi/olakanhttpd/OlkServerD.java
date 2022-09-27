@@ -1,25 +1,30 @@
 package com.olakandayi.olakanhttpd;
 
-import javax.net.ssl.KeyManagerFactory;
-import javax.net.ssl.SSLContext;
 import java.io.*;
-import java.net.InetSocketAddress;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
-import java.security.KeyStore;
-import java.util.Arrays;
 import java.util.Date;
+import java.util.Map;
+import java.util.UUID;
 
-public class ServerD {
+public class OlkServerD {
+	private  String session="";
     int number =0;
     ServerSocket sv=null;
 	boolean stopped=false;
 	int port;
 	public static final String BASE_DIR="resources";
-	public ServerD(int port) {
+	private ResponseBody body;
+	private OlkResponse response;
+	private Router router;
+	private OlkReqest request;
+	private Socket s;
+
+	public OlkServerD(int port) {
 		this.port=port;
 		System.err.print("server starts ");
 		start();
@@ -36,9 +41,12 @@ public class ServerD {
 		try {
 
 		this.sv = new ServerSocket(port);
-		System.err.println("on  http://localhost:"+port+"  "+new Date()+"  requests are: \n");
+			DatagramSocket uds=new DatagramSocket();
+			uds.connect(InetAddress.getByName("8.8.8.8"),80);
+			String host=uds.getLocalAddress().toString();
+		System.err.println("on  http:/"+host+":"+port+"  "+new Date()+"  requests are: \n");
 		}
-		catch (IOException e) {
+		catch (Exception e) {
 
 		System.out.println("from class "+this.getClass().getName()+e.getMessage());
 		}
@@ -47,8 +55,9 @@ public class ServerD {
 			new Thread(
 					() -> {
 						try{
-							Socket s=sv.accept();
+							 s=sv.accept();
 							number++;
+							//setSession();
 							//System.out.println(number);
 							InputStream i=s.getInputStream();
 							StringBuilder headers= new StringBuilder();
@@ -77,29 +86,21 @@ public class ServerD {
 							//noinspection ResultOfMethodCallIgnored
 							i.read();
 							//making request object
-							HReqest request=new HReqest(firstLine.toString(), headers.toString(),i);
-
+							 request=new OlkReqest(firstLine.toString(), headers.toString(),i);
+							setSession();
 
 							//logging request
 							System.out.println(number +" "+new Date()+"   "+"  "+s.getRemoteSocketAddress()+"  "+request.Method+" "+request.Path);
 							  // making response
-							ResponseBody body=new ResponseBody();
+							 body=new ResponseBody();
 
 							OutputStream io=s.getOutputStream();
-							Response response=new Response(io);
-							Router router=new Router(request,response);
+							 response=new OlkResponse(io);
+							 router=new Router(request,response);
 							////sendResponse
+								response.setCookie("olk-session",session,"","");
 
-
-							if(request.Path.equals("/ax")){
-								io.write("HTTP/1.1 200 OK\r\n".getBytes(StandardCharsets.US_ASCII));
-								io.write("Content-Type:image/jpeg".getBytes(StandardCharsets.US_ASCII));
-								io.write("\r\n".getBytes(StandardCharsets.US_ASCII));
-								io.write("\r\n".getBytes(StandardCharsets.US_ASCII));
-
-								body.fileToResponse(new File(BASE_DIR+"/ax.jpg"),io);
-								//System.out.println(new File(BASE_DIR+"/ax.jpg").getAbsolutePath());
-							}else if(request.Path.equals("/favicon.ico")){
+							 if(request.Path.equals("/favicon.ico")){
 								io.write("HTTP/1.1 200 OK\r\n".getBytes(StandardCharsets.US_ASCII));
 								io.write("Content-Type:image/ico".getBytes(StandardCharsets.US_ASCII));
 								io.write("\r\n".getBytes(StandardCharsets.US_ASCII));
@@ -129,7 +130,29 @@ public class ServerD {
 
 	}
 
+	private void setSession(){
+		if (request.cookies.isEmpty()){
+			System.out.println("nosession");
+			session=  String.valueOf(System.currentTimeMillis());
+			response.setCookie("olk-session",session,"","");
+			return;
+		}
+		for (Map.Entry<String,String> mapElement : request.cookies.entrySet()) {
 
+			String key = mapElement.getKey();
+
+
+			String value = (mapElement.getValue());
+
+			if(key.equals("olk-session")){
+				session= request.cookies.get(key);
+				System.out.println("session:  "+session);
+				return;
+			}
+
+		}
+		//session=  UUID.randomUUID().toString();
+	}
 
 
 }

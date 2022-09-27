@@ -4,12 +4,11 @@ import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.HashMap;
-import java.io.PrintWriter;
 import java.io.IOException;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.TimeZone;
-public class Response
+public class OlkResponse
 {
 	ResponseBody responseBody;
 	OutputStream os;
@@ -26,7 +25,7 @@ public class Response
 	private String contentType;
 	public ResponseBody body;
 
-	public Response(OutputStream oos){
+	public OlkResponse(OutputStream oos){
 		this.os=oos;
 		
 	}
@@ -43,7 +42,7 @@ public class Response
 	}
 	
 	
-	private void setCookie(String key ,String cookie ,Date expires,String Domain ,String path){
+	public void setCookie(String key ,String cookie ,String Domain ,String path){
 		
 		String a="";
 		a+=key+"="+cookie+";";

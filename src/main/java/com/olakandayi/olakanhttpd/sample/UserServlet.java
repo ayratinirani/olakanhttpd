@@ -1,21 +1,21 @@
 package com.olakandayi.olakanhttpd.sample;
 
-import com.olakandayi.olakanhttpd.HReqest;
+import com.olakandayi.olakanhttpd.OlkReqest;
 import com.olakandayi.olakanhttpd.HttpServlet;
-import com.olakandayi.olakanhttpd.Response;
-import com.olakandayi.olakanhttpd.ServerD;
+import com.olakandayi.olakanhttpd.OlkResponse;
+import com.olakandayi.olakanhttpd.OlkServerD;
 
 import java.io.File;
 import java.io.IOException;
 
 public class UserServlet extends HttpServlet {
-    public UserServlet(HReqest request, Response response) {
+    public UserServlet(OlkReqest request, OlkResponse response) {
         super(request, response);
 
     }
 
     @Override
-    public void get(HReqest request) throws IOException {
+    public void get(OlkReqest request) throws IOException {
 //
         response.bodyFileText=true;
         System.out.println("you are in getusers");
@@ -35,25 +35,25 @@ public class UserServlet extends HttpServlet {
     }
 
     @Override
-    public void post(HReqest request) {
+    public void post(OlkReqest request) {
         response.bodyFileText=false;
-      File myFile=new File(ServerD.BASE_DIR+"/ax.jpg");
+      File myFile=new File(OlkServerD.BASE_DIR+"/ax.jpg");
        response.setBodyFileBinary(myFile);
 
       response.send();
     }
 
     @Override
-    public void patch(HReqest request) {
+    public void patch(OlkReqest request) {
     }
 
     @Override
-    public void put(HReqest request) {
+    public void put(OlkReqest request) {
 
     }
 
     @Override
-    public void delete(HReqest request) {
+    public void delete(OlkReqest request) {
 
     }
 }

@@ -11,12 +11,12 @@ import java.util.Scanner;
 public class Router
 {
 	String ServletsBasePackage;
-	private  HReqest request;
-	private Response response;
+	private OlkReqest request;
+	private OlkResponse response;
 	private final String path;
 	
 	HashMap <String,String>schemas=new HashMap<>();
-	public Router(HReqest request,Response response){
+	public Router(OlkReqest request, OlkResponse response){
 		this.request=request;
 		this.response=response;
 		this.path=request.getPath();
@@ -42,28 +42,28 @@ public class Router
 					Object a=constructor.newInstance(args);
 					switch (request.Method) {
 						case "GET" -> {
-							Method getMethod = a.getClass().getMethod("get", HReqest.class);
+							Method getMethod = a.getClass().getMethod("get", OlkReqest.class);
 							 getMethod.invoke(a, request);
 
 						}
 						case "POST" -> {
-							Method getMethod = a.getClass().getMethod("post", HReqest.class);
-							response = (Response) getMethod.invoke(a, request);
+							Method getMethod = a.getClass().getMethod("post", OlkReqest.class);
+							response = (OlkResponse) getMethod.invoke(a, request);
 
 						}
 						case "DELETE" -> {
-							Method getMethod = a.getClass().getMethod("delete", HReqest.class);
-							response = (Response) getMethod.invoke(a, request);
+							Method getMethod = a.getClass().getMethod("delete", OlkReqest.class);
+							response = (OlkResponse) getMethod.invoke(a, request);
 
 						}
 						case "PATCH" -> {
-							Method getMethod = a.getClass().getMethod("patch", HReqest.class);
-							response = (Response) getMethod.invoke(a, request);
+							Method getMethod = a.getClass().getMethod("patch", OlkReqest.class);
+							response = (OlkResponse) getMethod.invoke(a, request);
 
 						}
 						case "PUT" -> {
-							Method getMethod = a.getClass().getMethod("put", HReqest.class);
-							response = (Response) getMethod.invoke(a, request);
+							Method getMethod = a.getClass().getMethod("put", OlkReqest.class);
+							response = (OlkResponse) getMethod.invoke(a, request);
 
 						}
 
@@ -88,7 +88,7 @@ public class Router
 	}
 	
 	private void parseSchema(){
-		File routeFile= new File(ServerD.BASE_DIR+"/route.txt");
+		File routeFile= new File(OlkServerD.BASE_DIR+"/route.txt");
 		try {
 		String line;
 			Scanner scanner=new Scanner(routeFile);

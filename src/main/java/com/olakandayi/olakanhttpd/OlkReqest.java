@@ -1,15 +1,13 @@
 package com.olakandayi.olakanhttpd;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Scanner;
 import java.util.ArrayList;
-import java.io.InputStreamReader;
 import java.util.Map;
 import java.util.HashMap;
-import java.lang.annotation.RetentionPolicy;
 
-public class HReqest {
-	String[] pathaparams;
+public class OlkReqest {
+    public HashMap<String,String>cookies=new HashMap<>();
+    String[] pathaparams;
     InputStream stream=null;
 	String headLine;
     ArrayList<String>Lines=new ArrayList();
@@ -23,7 +21,7 @@ public class HReqest {
 	InputStream inputStream;
 	private String hashpart;
 
-	public HReqest(String firstline,String headerline,InputStream inputStream){
+	public OlkReqest(String firstline, String headerline, InputStream inputStream){
 		this.stream=inputStream;
 		this.firstLine=firstline;
 		this.headLine=headerline;
